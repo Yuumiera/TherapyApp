@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <!-- Ad alanı -->
+    <EditText
+        android:id="@+id/nameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:hint="Ad"
+        android:inputType="text"
+        android:minHeight="48dp" />
+
+    <!-- Soyad alanı -->
+    <EditText
+        android:id="@+id/surnameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/nameEditText"
+        android:layout_marginBottom="8dp"
+        android:hint="Soyad"
+        android:inputType="text"
+        android:minHeight="48dp" />
+
+    <!-- E-posta alanı -->
+    <EditText
+        android:id="@+id/emailEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/surnameEditText"
+        android:layout_marginBottom="8dp"
+        android:hint="E-posta"
+        android:inputType="textEmailAddress"
+        android:minHeight="48dp" />
+
+    <!-- Kullanıcı adı alanı -->
+    <EditText
+        android:id="@+id/usernameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/emailEditText"
+        android:layout_marginBottom="8dp"
+        android:hint="Kullanıcı Adı"
+        android:inputType="text"
+        android:minHeight="48dp" />
+
+    <!-- Şifre alanı -->
+    <EditText
+        android:id="@+id/passwordEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/usernameEditText"
+        android:layout_marginBottom="16dp"
+        android:hint="Şifre"
+        android:inputType="textPassword"
+        android:minHeight="48dp" />
+
+    <!-- Kaydet düğmesi -->
+    <Button
+        android:id="@+id/registerButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/passwordEditText"
+        android:text="Kaydet"/>
+
+</RelativeLayout>
