@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E9000000"
+    android:backgroundTint="#E9000000"
+    android:foregroundTint="#E9000000"
+    android:padding="16dp">
+
+    <!-- Sesli Arama Sonucu Görüntüleme -->
+
+    <TextView
+        android:id="@+id/roomTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Room"
+        android:textColor="#CEF8F2F2"
+        android:textColorHint="#D2FFF8F8"
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/voiceSearchButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="54dp"
+        android:text="Sesli Arama Başlat" />
+
+    <TextView
+        android:id="@+id/resultTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/voiceSearchButton"
+        android:layout_marginTop="16dp"
+        android:padding="16dp"
+        android:text="Sonuç burada görünecek"/>
+
+
+
+
+</RelativeLayout>

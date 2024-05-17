@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#E9000000"
     android:padding="16dp">
 
     <EditText
@@ -9,9 +10,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:hint="Kullanıcı Adı"
+        android:hint="E-mail"
         android:inputType="text"
-        android:minHeight="48dp" />
+        android:minHeight="48dp"
+        android:textColor="#FCFFFFFF"
+        android:textColorHint="#F8F4F4" />
 
     <EditText
         android:id="@+id/passwordEditText"
@@ -19,16 +22,17 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/usernameEditText"
         android:layout_marginBottom="16dp"
-        android:hint="Şifre"
+        android:hint="Password"
         android:inputType="textPassword"
-        android:minHeight="48dp" />
+        android:minHeight="48dp"
+        android:textColorHint="#F8F4F4" />
 
     <Button
         android:id="@+id/loginButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/passwordEditText"
-        android:text="Giriş Yap"/>
+        android:text="Login" />
 
     <TextView
         android:id="@+id/registerTextView"
@@ -36,8 +40,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/loginButton"
         android:layout_marginTop="16dp"
-        android:text="Kayıt Ol"
         android:gravity="center"
-        android:textColor="@android:color/holo_blue_dark"/>
+        android:text="Register"
+        android:textColor="@color/white" />
 
 </RelativeLayout>

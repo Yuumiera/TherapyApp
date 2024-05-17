@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#E9000000"
     android:padding="16dp">
 
     <!-- Ad alanı -->
@@ -10,9 +11,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:hint="Ad"
+        android:backgroundTint="#673AB7"
+        android:foregroundTint="#F8F5F5"
+        android:hint="Name"
         android:inputType="text"
-        android:minHeight="48dp" />
+        android:minHeight="48dp"
+        android:shadowColor="#C1FFFFFF"
+        android:textColor="#673AB7"
+        android:textColorHint="#FFFFFF" />
 
     <!-- Soyad alanı -->
     <EditText
@@ -21,9 +27,11 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/nameEditText"
         android:layout_marginBottom="8dp"
-        android:hint="Soyad"
+        android:hint="Surname"
         android:inputType="text"
-        android:minHeight="48dp" />
+        android:minHeight="48dp"
+        android:textColor="#B5FFFFFF"
+        android:textColorHint="#FFFFFF" />
 
     <!-- E-posta alanı -->
     <EditText
@@ -32,9 +40,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/surnameEditText"
         android:layout_marginBottom="8dp"
-        android:hint="E-posta"
+        android:hint="E-mail"
         android:inputType="textEmailAddress"
-        android:minHeight="48dp" />
+        android:minHeight="48dp"
+        android:textColorHint="#FFFFFF" />
 
     <!-- Kullanıcı adı alanı -->
     <EditText
@@ -43,9 +52,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/emailEditText"
         android:layout_marginBottom="8dp"
-        android:hint="Kullanıcı Adı"
+        android:hint="Problem"
         android:inputType="text"
-        android:minHeight="48dp" />
+        android:minHeight="48dp"
+        android:textColorHint="#FFFFFF" />
 
     <!-- Şifre alanı -->
     <EditText
@@ -54,9 +64,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/usernameEditText"
         android:layout_marginBottom="16dp"
-        android:hint="Şifre"
+        android:hint="Password"
         android:inputType="textPassword"
-        android:minHeight="48dp" />
+        android:minHeight="48dp"
+        android:textColorHint="#FFFFFF" />
 
     <!-- Kaydet düğmesi -->
     <Button
@@ -64,6 +75,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/passwordEditText"
-        android:text="Kaydet"/>
+        android:text="Register" />
 
 </RelativeLayout>

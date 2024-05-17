@@ -1,46 +1,42 @@
 package com.example.therapyapp;
-
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
+import android.view.View;
 
+import androidx.appcompat.app.AppCompatActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
+    private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-        // Kullanıcı daha önceden giriş yaptı mı kontrol et
-        boolean userLoggedIn = checkIfUserLoggedIn();
+        mAuth = FirebaseAuth.getInstance();
 
-        // Eğer kullanıcı daha önceden giriş yapmışsa, doğrudan ana ekranı aç
-        if (userLoggedIn) {
-            // Giriş işlemi başarılıysa, grup terapisi ekranını aç
-            startGroupTherapyActivity();
-        } else {
-            // Giriş işlemi başarısızsa veya kullanıcı daha önceden giriş yapmamışsa, giriş ekranını aç
-            startLoginActivity();
+        // Kullanıcıları görüntülemek için bir düğme ekleyin ve bu düğmeye tıklama dinleyicisi ekleyin
+        //findViewById(R.id.viewUsersButton).setOnClickListener(new View.OnClickListener() {
+          //  @Override
+            //public void onClick(View v) {
+                // Kullanıcıları görüntülemek için UserListActivity'yi başlatın
+              //  startActivity(new Intent(MainActivity.this, UserListActivity.class));
+           // }
+        //});
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser == null) {
+            // User is not signed in, redirect to login activity
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            finish();
         }
-    }
-
-    // Kullanıcı daha önceden giriş yaptı mı kontrol eden metot
-    private boolean checkIfUserLoggedIn() {
-        // Burada kullanıcı giriş durumunu kontrol edin ve sonucu döndürün
-        // Örneğin, bir oturum yöneticisi (session manager) kullanarak kontrol edebilirsiniz
-        return false; // Örnek olarak her zaman false dönüyoruz, siz bu kontrolü kendi gereksinimlerinize göre yapmalısınız
-    }
-
-    // Giriş ekranını açan metot
-    private void startLoginActivity() {
-        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-        startActivity(intent);
-        finish(); // MainActivity'yi kapat
-    }
-
-    // Grup terapisi ekranını açan metot
-    private void startGroupTherapyActivity() {
-        Intent intent = new Intent(MainActivity.this, GroupTherapyActivity.class);
-        startActivity(intent);
-        finish(); // MainActivity'yi kapat
     }
 }
