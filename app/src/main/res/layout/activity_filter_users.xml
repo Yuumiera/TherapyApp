@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- activity_user_match.xml -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp">
 
-    <!-- Bozuklukları seçmek için Spinner -->
     <Spinner
-        android:id="@+id/disorderSpinner"
+        android:id="@+id/spinnerDisorder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:spinnerMode="dropdown" />
+        android:minHeight="48dp" />
 
-    <!-- Filtrelenmiş kullanıcıların listesini göstermek için RecyclerView -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/usersRecyclerView"
+    <Button
+        android:id="@+id/buttonFilter"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="16dp" />
+        android:layout_height="wrap_content"
+        android:text="Filter" />
 
+    <ListView
+        android:id="@+id/listViewUsers"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>

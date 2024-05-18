@@ -1,22 +1,19 @@
 package com.example.therapyapp;
 
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class Message {
     private String senderId;
-    private String messageText;
-    private String receiverId;
+    private String message;
+    private long timestamp;
 
-    // Boş yapıcı metot, Firestore için gereklidir.
     public Message() {
+        // Firestore için boş yapıcı
     }
 
-    public Message(String senderId, String messageText, String receiverId) {
+    public Message(String senderId, String message, long timestamp) {
         this.senderId = senderId;
-        this.messageText = messageText;
-        this.receiverId = receiverId;
+        this.message = message;
+        this.timestamp = timestamp;
     }
 
     public String getSenderId() {
@@ -27,27 +24,19 @@ public class Message {
         this.senderId = senderId;
     }
 
-    public String getMessageText() {
-        return messageText;
+    public String getMessage() {
+        return message;
     }
 
-    public void setMessageText(String messageText) {
-        this.messageText = messageText;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-    public String getReceiverId() {
-        return receiverId;
+    public long getTimestamp() {
+        return timestamp;
     }
 
-    public void setReceiverId(String receiverId) {
-        this.receiverId = receiverId;
-    }
-
-    public Map<String, Object> toMap() {
-        HashMap<String, Object> result = new HashMap<>();
-        result.put("senderId", senderId);
-        result.put("messageText", messageText);
-        result.put("receiverId", receiverId);
-        return result;
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
     }
 }

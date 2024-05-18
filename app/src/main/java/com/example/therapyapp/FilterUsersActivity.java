@@ -1,90 +1,99 @@
 package com.example.therapyapp;
 
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QuerySnapshot;
-
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FilterUsersActivity extends AppCompatActivity {
-
-    private Spinner disorderSpinner;
-    private RecyclerView usersRecyclerView;
-    private UsersAdapter usersAdapter;
-    private List<User> userList;
-
     private FirebaseFirestore db;
+    private ListView listViewUsers;
+    private Spinner spinnerDisorder;
+    private Button buttonFilter;
+    private List<User> userList;
+    private UserAdapter userAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filter_users);
 
-        disorderSpinner = findViewById(R.id.disorderSpinner);
-        usersRecyclerView = findViewById(R.id.usersRecyclerView);
-
         db = FirebaseFirestore.getInstance();
-        userList = new ArrayList<>();
-        usersAdapter = new UsersAdapter(userList);
+        listViewUsers = findViewById(R.id.listViewUsers);
+        spinnerDisorder = findViewById(R.id.spinnerDisorder);
+        buttonFilter = findViewById(R.id.buttonFilter);
 
-        usersRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        usersRecyclerView.setAdapter(usersAdapter);
-
-        // Bozuklukları (disorders) doldur
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.disorders_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        disorderSpinner.setAdapter(adapter);
+        spinnerDisorder.setAdapter(adapter);
 
-        disorderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        userList = new ArrayList<>();
+        userAdapter = new UserAdapter(this, userList);
+        listViewUsers.setAdapter(userAdapter);
+
+        buttonFilter.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedDisorder = parent.getItemAtPosition(position).toString();
+            public void onClick(View v) {
+                String selectedDisorder = spinnerDisorder.getSelectedItem().toString();
                 filterUsersByDisorder(selectedDisorder);
             }
+        });
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // Hiçbir şey seçilmediğinde yapılacak işlemler
+        listViewUsers.setOnItemClickListener((parent, view, position, id) -> {
+            User selectedUser = userList.get(position);
+            // Start ChatActivity and pass user details
+            Intent intent = new Intent(FilterUsersActivity.this, ChatActivity.class);
+            intent.putExtra("userName", selectedUser.getName());
+            startActivity(intent);
+        });
+
+        loadUsers();
+    }
+
+    private void loadUsers() {
+        CollectionReference usersRef = db.collection("users");
+        usersRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                userList.clear();
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    User user = document.toObject(User.class);
+                    userList.add(user);
+                }
+                userAdapter.notifyDataSetChanged();
+                Log.d("UserMatchActivity", "Users loaded: " + userList.size());
+            } else {
+                Log.d("UserMatchActivity", "Error getting documents: ", task.getException());
             }
         });
     }
 
     private void filterUsersByDisorder(String disorder) {
-        db.collection("users")
-                .whereEqualTo("disorder", disorder)
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@NonNull QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                        if (e != null) {
-                            Toast.makeText(FilterUsersActivity.this, "Error loading users", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-
-                        userList.clear();
-                        for (DocumentSnapshot document : queryDocumentSnapshots.getDocuments()) {
-                            User user = document.toObject(User.class);
-                            userList.add(user);
-                        }
-                        usersAdapter.notifyDataSetChanged();
-                    }
-                });
+        CollectionReference usersRef = db.collection("users");
+        usersRef.whereEqualTo("disorder", disorder).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                userList.clear();
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    User user = document.toObject(User.class);
+                    userList.add(user);
+                }
+                userAdapter.notifyDataSetChanged();
+                Log.d("UserMatchActivity", "Filtered users: " + userList.size());
+            } else {
+                Log.d("UserMatchActivity", "Error filtering documents: ", task.getException());
+            }
+        });
     }
 }

@@ -29,7 +29,7 @@ public class GroupChatActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Sohbet aktivitesine git
-                startActivity(new Intent(GroupChatActivity.this, ChatActivity.class));
+                startActivity(new Intent(GroupChatActivity.this, FilterUsersActivity.class));
             }
         });
     }
